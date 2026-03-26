@@ -14,16 +14,281 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appointment_date: string
+          barber_id: string
+          client_id: string
+          created_at: string | null
+          end_time: string
+          id: string
+          payment_method: string | null
+          payment_status: string | null
+          price: number | null
+          service_id: string | null
+          start_time: string
+          status: string
+        }
+        Insert: {
+          appointment_date: string
+          barber_id: string
+          client_id: string
+          created_at?: string | null
+          end_time: string
+          id?: string
+          payment_method?: string | null
+          payment_status?: string | null
+          price?: number | null
+          service_id?: string | null
+          start_time: string
+          status?: string
+        }
+        Update: {
+          appointment_date?: string
+          barber_id?: string
+          client_id?: string
+          created_at?: string | null
+          end_time?: string
+          id?: string
+          payment_method?: string | null
+          payment_status?: string | null
+          price?: number | null
+          service_id?: string | null
+          start_time?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      barber_schedules: {
+        Row: {
+          barber_id: string
+          day_of_week: number
+          end_time: string
+          id: string
+          is_active: boolean | null
+          start_time: string
+        }
+        Insert: {
+          barber_id: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_active?: boolean | null
+          start_time: string
+        }
+        Update: {
+          barber_id?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_active?: boolean | null
+          start_time?: string
+        }
+        Relationships: []
+      }
+      billing_payments: {
+        Row: {
+          admin_user_id: string
+          amount: number
+          billing_period: string | null
+          created_at: string | null
+          id: string
+          notes: string | null
+          payment_method: string | null
+          subscription_activated: boolean | null
+        }
+        Insert: {
+          admin_user_id: string
+          amount?: number
+          billing_period?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          payment_method?: string | null
+          subscription_activated?: boolean | null
+        }
+        Update: {
+          admin_user_id?: string
+          amount?: number
+          billing_period?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          payment_method?: string | null
+          subscription_activated?: boolean | null
+        }
+        Relationships: []
+      }
+      billing_settings: {
+        Row: {
+          amount: number
+          billing_period: string
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          amount?: number
+          billing_period?: string
+          id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          billing_period?: string
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string | null
+          title: string
+          type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string | null
+          title: string
+          type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string | null
+          title?: string
+          type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          admin_id: string | null
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          is_available: boolean | null
+          is_frozen: boolean | null
+          phone: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          admin_id?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          is_available?: boolean | null
+          is_frozen?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          admin_id?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          is_available?: boolean | null
+          is_frozen?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          barber_id: string
+          category: string | null
+          created_at: string | null
+          duration_minutes: number
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          name: string
+          price: number
+          video_url: string | null
+        }
+        Insert: {
+          barber_id: string
+          category?: string | null
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name: string
+          price?: number
+          video_url?: string | null
+        }
+        Update: {
+          barber_id?: string
+          category?: string | null
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name?: string
+          price?: number
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "barber" | "client" | "admin" | "super_admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +415,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["barber", "client", "admin", "super_admin"],
+    },
   },
 } as const
